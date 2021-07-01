@@ -35,3 +35,30 @@ def removeDuplicates(self, nums: List[int]) -> int:
 			i+=1
 	
 	return n
+
+
+#35. Search Insert Position
+def searchInsert(self, nums: List[int], target: int) -> int:
+	#O(log n)
+	left, right = 0, len(nums)-1
+	mid = (right+left)//2
+	while(left< right):
+		if target<mid:
+			right = mid
+		elif target>mid:
+			left = mid + 1
+		else:
+			return mid
+		
+		mid = (right+left)//2
+
+	return mid
+
+#53. Maximum Subarray
+def maxSubArray(self, nums: List[int]) -> int:
+#Kadanes
+	maxi = s = nums[0]
+	for num in range(nums[1:]):
+		s = max(num, s+num)
+		maxi = max(maxi, s)
+	return maxi 
