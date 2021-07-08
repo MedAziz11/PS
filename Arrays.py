@@ -20,6 +20,15 @@ def removeDuplicates(self, nums: List[int]) -> int:
 			del nums[i]
 	return len(nums)
 
+
+	#Two pointers:
+	# if not nums :return 0
+	# i = 0
+	# for j in range(1, len(nums)-1):
+	# 	if nums[i] != nums[j]:
+	# 		i+=1
+	# 		nums[i] = nums[j]
+
 #27. Remove Element
     def removeElement(self, nums: List[int], val: int) -> int:
 	#Pythonic
@@ -90,3 +99,55 @@ def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
 			nums[m+n-1]  = nums[n-1]
 			n-=1
 	nums1[:n] = nums2[:n]
+ 
+ 
+ 
+#108. Convert Sorted Array to Binary Search Tree
+def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
+
+	def convert(left:int , right:int) ->TreeNode:
+		if left>right:
+			return None
+		mid = (right+left)//2
+		node  = TreeNode(nums[mid])
+		node.left= convert(left, mid-1)
+		node.right = convert(mid+1, right)
+		return node
+
+	return convert(0, len(nums)-1)
+
+#121. Best Time to Buy and Sell Stock
+def maxProfit(self, prices: List[int]) -> int:
+	#Kadanes
+	profit, buy_day = 0, prices[0]
+	for price in prices[1:]:
+		buy_day = min(buy_day, curr)
+		profit = max(profit, price-buy_day) 
+
+	return ans
+
+#122. Best Time to Buy and Sell Stock II
+def maxProfit(self, prices: List[int]) -> int:
+	profit = 0
+	for i, price in enumerate(prices[:-1]):
+		if price< prices[i+1]:
+			profit +=prices[i+1] + price
+
+	return profit	
+	
+
+#136. Single Number
+def singleNumber(self, nums: List[int]) -> int:
+	hmap = defaultdict(int)
+	for num in nums :
+		hmap[num]+=1
+
+	for key, val in hmap.items():
+		if val == 1:
+			return key
+
+	#XOR
+	# ans = 0
+	# for num in nums :
+	# 	ans ^=num
+	# return num
