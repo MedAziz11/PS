@@ -48,4 +48,19 @@ class Solution:
 
         backtracking(0, "")
 
+
+        return ans
+    
+    #78. Subsets
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        
+        ans = []
+        def backtracking(i:int, subset: List[int]):
+            if i == len(nums): ans.append(subset); return
+            
+            backtracking(i+1, subset + [nums[i]])
+            backtracking(i+1, subset)
+            
+            
+        backtracking(0, [])
         return ans
