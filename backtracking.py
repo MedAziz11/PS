@@ -64,3 +64,31 @@ class Solution:
             
         backtracking(0, [])
         return ans
+    
+    #46. Permutations
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        ans  = []
+        def backtrack(curr: List[int], possibilities: List[int]):
+            if not possibilities: ans.append(curr); return
+            
+            for j, num in enumerate(possibilities):
+                
+                backtrack(curr+[num], possibilities[:j]+possibilities[j+1:] )
+        
+        backtrack([], nums)
+        return ans
+    
+    #77. Combinations
+    def combine(self, n: int, k: int) -> List[List[int]]:
+
+        ans = []                             
+        def backtrack(curr: List[int]= [], start: int=1)-> None :
+            if len(curr)== k: ans.append(curr); return
+            for num in range(start, n+1):
+                backtrack(curr+[num], num+1)
+                
+                
+        backtrack()
+        
+        return ans
+                
