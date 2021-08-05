@@ -91,4 +91,78 @@ class Solution:
         backtrack()
         
         return ans
+    
+    #90. Subsets II
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        ans = []
+        def backtrack(nums: List[int], curr: List[int])->None:
+            ans.append(curr)
+            for i in range(len(nums)):
+                if i>0 and nums[i] == nums[i-1]:
+                    continue
+                backtrack(nums[i+1:], curr+[nums[i]])
+    
+    
+        backtrack(sorted(nums), [])
+        return ans
                 
+                
+    #47. Permutations II
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        ans  = []
+        def backtrack(curr: List[int], c =Counter(nums)):
+            if len(curr) == len(nums): ans.append(curr); return
+            
+            for num in c:
+                if c[num]> 0:
+                    c[num]-= 1
+                    backtrack(curr+[num], c)
+                    c[num]+= 1
+        
+        backtrack([])
+        return ans
+    
+    #39. Combination Sum
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        ans = []
+        def dfs(target: int, curr: List[int], first: int)->None: 
+            if target == 0: ans.append(curr); return 
+            if target < 0 : return 
+            for i in range(first, len(candidates)):
+                c = candidates[i]
+
+                dfs(target-c, curr+[c], i)
+                
+        dfs(target, [], 0)
+        return ans
+    
+    #40. Combination Sum II
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        ans  = []
+        def backtrack(target: int, curr: List[int], first: int)->None:
+            if target == 0: ans.append(curr); return
+            if target < 0: return 
+            for i in range(first, len(candidates)):
+                c = candidates[i]
+                if i>first and c == candidates[i-1]: continue
+                if target - c < 0: break
+                backtrack(target - c, curr + [c], i+1)
+        
+        candidates.sort()
+        backtrack(target, [], 0)
+        return ans
+    
+    #216. Combination Sum III
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        ans = []
+        
+        def backtrack(target: int, curr: List[int], first: int):
+            if target == 0 and len(curr) == k: ans.append(curr); return
+            if target<0 or len(curr)> k: return
+            
+            for i in range(first, 10):
+                if target - i <0 : break
+                backtrack(target - i, curr+[i], i+1)
+                
+        backtrack(n, [], 1)
+        return ans
